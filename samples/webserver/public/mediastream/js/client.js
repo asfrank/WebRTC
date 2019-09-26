@@ -4,6 +4,15 @@ var audioSource = document.querySelector("select#audioSource");
 var audioOutput = document.querySelector("select#audioOutput");
 var videoSource = document.querySelector("select#videoSource");
 
+//filter
+var filtersSelect = document.querySelector('select#filter');
+
+//picture
+var snapshot = document.querySelector('button#snapshot');
+var picture = document.querySelector('canvas#picture');
+picture.width = 640;
+picture.height = 480;
+
 function gotMediaStream(stream) {
     videoplay.srcObject = stream;
     return navigator.mediaDevices.enumerateDevices();
@@ -53,3 +62,12 @@ function start() {
 
 start();
 videoSource.onchange = start;
+
+filtersSelect.onchange = function(){
+	videoplay.className = filtersSelect.value;
+}
+
+snapshot.onclick = function() {
+    picture.getContext('2d').drawImage(videoplay, 0, 0, picture.width, picture.height);
+}
+
